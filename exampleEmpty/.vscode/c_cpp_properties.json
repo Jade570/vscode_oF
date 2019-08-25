@@ -5,7 +5,6 @@
             "includePath": [
                 "/usr/include",
                 "/usr/local/include",
-                "/usr/local/include/cairo",
                 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/",
                 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1",
                 "${workspaceRoot}/../../../libs/openFrameworks",
@@ -35,16 +34,6 @@
                 "${workspaceRoot}/../../../libs/tess2/include",
                 "${workspaceRoot}/../../../libs/uriparser/include",
                 "${workspaceRoot}/../../../libs/utf8/include",
-                "${workspaceRoot}/../../../addons/ofxGui/src",
-                "${workspaceRoot}/../../../addons/ofxCv/src",
-                "${workspaceRoot}/../../../addons/ofxCv/libs/ofxCv/include",
-                "${workspaceRoot}/../../../addons/ofxCv/libs/CLD/include",
-                "${workspaceRoot}/../../../addons/ofxCv/libs/CLD/include/CLD",
-                "${workspaceRoot}/../../../addons/ofxOsc/src",
-                "${workspaceRoot}/../../../addons/ofxOsc/libs/oscpack/src/osc",
-                "${workspaceRoot}/../../../addons/ofxOsc/libs/oscpack/src/ip",
-                "/System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks",
-                "/System/Library/Frameworks/ApplicationServices.framework/Versions/Current/Frameworks"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
@@ -52,12 +41,10 @@
                 "path": [
                     "/usr/include",
                     "/usr/local/include",
-                    "/usr/local/include/cairo",
                     "/System/Library/Frameworks",
                     "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/",
                     "${workspaceRoot}/../../../libs",
                     "${workspaceRoot}/../../../addons",
-                    "${workspaceRoot}/../../../addons/ofxOsc/libs",
                     "${workspaceRoot}/../../../libs/openFrameworks"
                 ]
             },
@@ -65,19 +52,23 @@
             "macFrameworkPath": [
                 "/System/Library/Frameworks",
                 "/Library/Frameworks"
-            ]
+            ],
+            "compilerPath": "/usr/local/bin/gcc-8",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         },
         {
             "name": "Linux",
             "includePath": [
                 "/usr/include",
                 "/usr/local/include",
-                "/usr/include/c++/7.3.1",
-                "/usr/include/c++/7.3.1/backward",
-                "/usr/lib/gcc/x86_64-linux-gnu/7.3.1/include",
-                "/usr/lib/gcc/x86_64-linux-gnu/7.3.1/include-fixed",
+                "/usr/include/c++/9.1.0",
+                "/usr/include/c++/9.1.0/backward",
+                "/usr/lib/gcc/x86_64-linux-gnu/9.1.0/include",
                 "/usr/lib/glib-2.0/include",
-                "/usr/lib/gstreamer-1.0/include",
+                "/usr/include/gstreamer-1.0",
+                "/usr/local/include",
+                "/usr/lib/gcc/x86_64-pc-linux-gnu/9.1.0/include-fixed",
                 "${workspaceRoot}/../../../libs/openFrameworks",
                 "${workspaceRoot}/../../../libs/openFrameworks/3d",
                 "${workspaceRoot}/../../../libs/openFrameworks/app",
@@ -112,7 +103,10 @@
                 "/usr/include/gstreamer-1.0",
                 "/usr/include/glib-2.0",
                 "${workspaceRoot}",
-                "${workspaceFolder}"
+                "${workspaceRoot}/utils",
+                "${workspaceRoot}/3d",
+                "${workspaceRoot}/math",
+                "${workspaceRoot}/types"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
@@ -120,15 +114,14 @@
                 "path": [
                     "/usr/include",
                     "/usr/local/include",
-                    "/usr/lib",
-                    "${workspaceRoot}/../../../libs/openFrameworks",
-                    "${workspaceRoot}",
-                    "${workspaceFolder}",
-                    "${workspaceRoot}/../../../addons"
+                    "${workspaceRoot}/../../../libs",
+                    "${workspaceRoot}/../../../addons",
+                    "${workspaceRoot}/../../../libs/openFrameworks"
+                    
                 ]
             },
             "intelliSenseMode": "clang-x64",
-            "compilerPath": "/usr/bin/gcc",
+            "compilerPath": "/usr/bin/gcc-8",
             "cStandard": "c11",
             "cppStandard": "c++17"
         },
@@ -144,7 +137,10 @@
                     "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include/*"
                 ]
             },
-            "intelliSenseMode": "msvc-x64"
+            "intelliSenseMode": "msvc-x64",
+            "compilerPath": "/usr/local/bin/gcc-8",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         }
     ],
     "version": 4
