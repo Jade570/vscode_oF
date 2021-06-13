@@ -22,9 +22,4 @@ public:
 	void gotMessage(ofMessage msg);
 	
 
-	int timer = 0;
-	float width, height;
-	vector <ripple> ripPond;
-	float mx, my;
-	bool mouseIsPressed = false;
 };

@@ -1,17 +1,21 @@
 #include "ofApp.h"
 
 
-
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetBackgroundAuto(false);
     width = ofGetWidth();
     height = ofGetHeight();
+
+    //myArduino.connect("/dev/tty/usb0", 9600);
+    mySerial.getDeviceList();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    ofSeedRandom(38);
+    ofSeedRandom(38); 
+
+
 }
 
 //--------------------------------------------------------------
@@ -19,7 +23,15 @@ void ofApp::draw(){
     float noise_seed [800];
     ofBackground (6,5,43);
 
+    //star
+    for (int i = 0 ; i<100; i++){
+        ofSetColor(255, ofMap(ofRandom(1000), 0, 1000, 0, 200));
+        ofDrawCircle(ofRandom(width), ofRandom(height), ofMap(ofRandom(1000), 0, 1000, 0.5, 3));
+    }
+
+    
     //city sillhouette
+    /*
     ofSetColor(0);
     ofBeginShape();
     int temp;
@@ -38,8 +50,48 @@ void ofApp::draw(){
     ofVertex(width, height);
     ofVertex(0, height);
     ofEndShape();    
+    */
+
+    ofSetColor(255);
+    /*
+    int temp;
+    for (int x = -180; x <= 0; x ++) {
+        ofBeginShape();
+        int ty ;
+        if (mouseX%30 == 0){
+            ty = ofMap(ofNoise(ofRandom(1000), (mouseX * 0.01)), 0, 1, height/5*3-200, height/5*3-100);
+            temp = ty;
+        }
+        else {
+            ty = temp;
+        }
+
+        ofVertex(mouseX + (x+180)*glm::cos(glm::radians((float)x)), mouseY + ofClamp(ty, mouseY+(x+180)*glm::sin(glm::radians((float)x)), height));
+        ofVertex(mouseX + (x+180), height);
+        ofVertex(mouseX - (x+180), height);
+        ofEndShape();  
+	}
+    */
 
 
+    for (int r = 30; r<=180; r=30+r*3){
+
+        //ofDrawCircle(mouseX, mouseY, r);
+    }
+
+        int r = 50;
+        ofBeginShape();
+        for (float x = mouseX-r; x <= mouseX+r; x +=1) {
+            float theta = glm::acos((x-mouseX)/r);
+            ofVertex(mouseX+r*glm::cos(theta), mouseY+r*glm::sin(theta));
+        }
+        for (float x = mouseX+r; x <= mouseX-r; x -=1) {
+            float theta = glm::acos((x-mouseX)/r);
+            ofVertex(mouseX+r*glm::cos(theta), mouseY+r*glm::sin(theta));
+        }
+        ofEndShape();
+
+    /*
     //light
     if (mouseIsPressed){
         ofSetColor(240,236,175,5);
@@ -47,7 +99,7 @@ void ofApp::draw(){
             ofDrawCircle(mouseX, mouseY, i*3+30);
         }
     }
-
+    */
 
     //shapes
     for (int i = 0 ; i<25; i += 2){
@@ -99,7 +151,6 @@ void ofApp::draw(){
         ofEndShape();
     } 
     */
-
 
     //moons
     /*

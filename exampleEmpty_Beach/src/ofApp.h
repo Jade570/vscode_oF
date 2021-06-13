@@ -25,4 +25,6 @@ public:
 	int timer = 0;
 	float width, height;
 	bool mouseIsPressed = false;
+	ofArduino myArduino;
+	ofSerial mySerial;
 };
