@@ -9,6 +9,7 @@ public:
 	void update();
 	void draw();
 	
+	
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y);
@@ -25,6 +26,7 @@ public:
 	int timer = 0;
 	float width, height;
 	bool mouseIsPressed = false;
+	int city[5000]; 
 	ofArduino myArduino;
 	ofSerial mySerial;
 };

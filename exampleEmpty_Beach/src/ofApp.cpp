@@ -9,31 +9,7 @@ void ofApp::setup(){
 
     //myArduino.connect("/dev/tty/usb0", 9600);
     mySerial.getDeviceList();
-}
 
-//--------------------------------------------------------------
-void ofApp::update(){
-    ofSeedRandom(38); 
-
-
-}
-
-//--------------------------------------------------------------
-void ofApp::draw(){
-    float noise_seed [800];
-    ofBackground (6,5,43);
-
-    //star
-    for (int i = 0 ; i<100; i++){
-        ofSetColor(255, ofMap(ofRandom(1000), 0, 1000, 0, 200));
-        ofDrawCircle(ofRandom(width), ofRandom(height), ofMap(ofRandom(1000), 0, 1000, 0.5, 3));
-    }
-
-    
-    //city sillhouette
-    /*
-    ofSetColor(0);
-    ofBeginShape();
     int temp;
     for (int x = 0; x <= width; x ++) {
         int y ;
@@ -44,68 +20,81 @@ void ofApp::draw(){
         else {
             y = temp;
         }
+        city[x] = y;
+    }
+}
 
-        ofVertex(x, y);
-	}
-    ofVertex(width, height);
-    ofVertex(0, height);
-    ofEndShape();    
-    */
+//--------------------------------------------------------------
+void ofApp::update(){
+    ofSeedRandom(38); 
+}
 
-    ofSetColor(255);
-    /*
-    int temp;
-    for (int x = -180; x <= 0; x ++) {
-        ofBeginShape();
-        int ty ;
-        if (mouseX%30 == 0){
-            ty = ofMap(ofNoise(ofRandom(1000), (mouseX * 0.01)), 0, 1, height/5*3-200, height/5*3-100);
-            temp = ty;
-        }
-        else {
-            ty = temp;
-        }
+//--------------------------------------------------------------
+void ofApp::draw(){
+    float noise_seed [5000];
+    ofBackground (6,5,43);
 
-        ofVertex(mouseX + (x+180)*glm::cos(glm::radians((float)x)), mouseY + ofClamp(ty, mouseY+(x+180)*glm::sin(glm::radians((float)x)), height));
-        ofVertex(mouseX + (x+180), height);
-        ofVertex(mouseX - (x+180), height);
-        ofEndShape();  
-	}
-    */
-
-
-    for (int r = 30; r<=180; r=30+r*3){
-
-        //ofDrawCircle(mouseX, mouseY, r);
+    //star
+    for (int i = 0 ; i<100; i++){
+        ofSetColor(255, ofMap(ofRandom(1000), 0, 1000, 0, 200));
+        ofDrawCircle(ofRandom(width), ofRandom(height), ofMap(ofRandom(1000), 0, 1000, 0.5, 3));
     }
 
-        int r = 50;
+    //tried to drop shadow the city silhouette
+    /*
+    ofSetColor(0);
+    for (float r = 50; r<=180; r+=3){
+        float xPos, yPosDown, yPosUp;
         ofBeginShape();
-        for (float x = mouseX-r; x <= mouseX+r; x +=1) {
+        for (float x = mouseX-r; x <= mouseX+r; x +=5) {
             float theta = glm::acos((x-mouseX)/r);
-            ofVertex(mouseX+r*glm::cos(theta), mouseY+r*glm::sin(theta));
+            xPos = mouseX+r*glm::cos(theta);
+            yPosDown = mouseY+r*glm::sin(theta);
+            if (city[(int)glm::roundEven(xPos)]<=yPosDown){
+                ofVertex(xPos, yPosDown);
+            }
+            else{               
+            }
         }
-        for (float x = mouseX+r; x <= mouseX-r; x -=1) {
+        for (float x = mouseX+r; x >= mouseX-r; x -=5) {
             float theta = glm::acos((x-mouseX)/r);
-            ofVertex(mouseX+r*glm::cos(theta), mouseY+r*glm::sin(theta));
+            xPos = mouseX+r*glm::cos(theta);
+            yPosUp = mouseY-r*glm::sin(theta);
+            if (city[(int)glm::roundEven(xPos)]<=yPosUp && city[(int)glm::roundEven(xPos)]>mouseY-r){
+                ofVertex(xPos, city[(int)glm::roundEven(xPos)]);
+            }
         }
         ofEndShape();
-
-    /*
-    //light
-    if (mouseIsPressed){
-        ofSetColor(240,236,175,5);
-        for (int i = 0; i<50; i++){
-            ofDrawCircle(mouseX, mouseY, i*3+30);
-        }
     }
     */
 
-    //shapes
+    // flash light
+    /*float opacity = ofMap(mouseY, height-height/5, height/5, 5, 0);*/ //opacity 않끊기게, 그리고 위는 오로라가.
+    ofSetColor(255, 251, 222, 5);   
+    for (float r = 30; r<=130; r+=10){
+        float xPos, yPosDown, yPosUp;
+        ofBeginShape();
+        for (float x = mouseX-r; x <= mouseX+r; x +=5) {
+            float theta = glm::acos((x-mouseX)/r);
+            xPos = mouseX+r*glm::cos(theta);
+            yPosDown = mouseY+r*glm::sin(theta);
+            ofVertex(xPos, yPosDown);
+        }
+        for (float x = mouseX+r; x >= mouseX-r; x -=5) {
+            float theta = glm::acos((x-mouseX)/r);
+            xPos = mouseX+r*glm::cos(theta);
+            yPosUp = mouseY-r*glm::sin(theta);
+            ofVertex(xPos, yPosUp);
+        }
+        ofEndShape();
+    }
+
+
+    //wave in shapes 
     for (int i = 0 ; i<25; i += 2){
         noise_seed[i] = ofRandom(1000);
         float val = ofMap(noise_seed[i], 0, 1000, 20, 35);
-        ofSetColor(ofMap(noise_seed[i], 0, 1000, 30, 80), ofMap(noise_seed[i], 0, 1000, 130, 80), ofMap(noise_seed[i], 0, 1000, 150, 200), ofMap(noise_seed[i], 0, 1000, 30, 85) );
+        ofSetColor(ofMap(noise_seed[i], 0, 1000, 30/5, 80/5), ofMap(noise_seed[i], 0, 1000, 130/5, 80/5), ofMap(noise_seed[i], 0, 1000, 150/5, 200/5), ofMap(noise_seed[i], 0, 1000, 5, 45) );
         
         ofBeginShape();
         for (int x = 0; x <= width; x += 1) {
@@ -115,6 +104,7 @@ void ofApp::draw(){
         ofVertex(width, height);
         ofVertex(0, height);
 	    ofEndShape();
+
 
         noise_seed[i+1] = ofRandom(1000);
         val = ofMap(noise_seed[i+1], 0, 1000, 20, 35);
@@ -129,27 +119,43 @@ void ofApp::draw(){
         ofVertex(0, height);
 	    ofEndShape();
     }
+    
 
-
-    //lines
     /*
-    for (int i = 0 ; i<25; i++){
-        noise_seed[i] = ofRandom(1000);
-        float val = ofMap(noise_seed[i], 0, 1000, 20, 35);
-        ofSetColor(ofMap(noise_seed[i], 0, 1000, 70, 100), ofMap(noise_seed[i], 0, 1000, 200, 130), ofMap(noise_seed[i], 0, 1000, 200, 255));
-            
+    ofBeginShape();
+    for (int x = 0; x <= width; x+= 3){
+        noise_seed[x] = ofRandom(1000);
+        int y = height/2+ofNoise(noise_seed[x], ofGetFrameNum()*0.01)*10;
+        //ofDrawCircle(x, y, 3);
+        ofVertex(x, y);
+    }
+    for (int x = width; x >= 0; x-= 3){
+        int y = height/2+ofNoise(noise_seed[x], ofGetFrameNum()*0.01)*10;
+        ofVertex(x, y+3);
+    }
+    ofEndShape();
+    */
+
+    //wave in lines  
+    /*
+    noise_seed[0] = ofRandom(1000);
+    for (int i = 0 ; i<25; i++){      
+        float val = ofMap(noise_seed[0], 0, 1000, 20, 35);
+        ofSetColor(ofMap(noise_seed[0], 0, 1000, 70, 100), ofMap(noise_seed[0], 0, 1000, 200, 130), ofMap(noise_seed[0], 0, 1000, 200, 255));
+                             
         ofBeginShape();
-        for (int x = 0; x <= width; x += 1) {
-            auto y = ofMap(ofNoise(noise_seed[i], ((x + ofGetFrameNum()) * 0.01)), 0, 1, height/5*3+i*val-val/2, height/5*3+i*val+val/2);
+        for (int x = 0; x <= width; x += 10) {
+            noise_seed[x+1] = ofRandom(1000);
+            auto y = ofMap(ofNoise(noise_seed[x+1], ((x + ofGetFrameNum()) * 0.01)), 0, 1, height/5*3+i*val-val/2, height/5*3+i*val+val/2);
             ofVertex(x, y);
-        }
-        
-        for (int x = width; x >= 0; x -= 1) {
-            auto y = ofMap(ofNoise(noise_seed[i], ((x + ofGetFrameNum()) * 0.01)), 0, 1, height/5*3+i*val-val/2+2, height/5*3+i*val+val/2+2);
+        }             
+                   
+        for (int x = width; x >= 0; x -= 10) {
+            auto y = ofMap(ofNoise(noise_seed[x+1], ((x + ofGetFrameNum()) * 0.01)), 0, 1, height/5*3+i*val-val/2+5, height/5*3+i*val+val/2+5);
             ofVertex(x, y);
-        }
+        }          
         ofEndShape();
-    } 
+    }
     */
 
     //moons
@@ -157,8 +163,6 @@ void ofApp::draw(){
     ofSetColor(240, 236, 175);
     ofDrawCircle(width/5*4, height/5, 40); 
     */
-
-
 }
 
 //--------------------------------------------------------------

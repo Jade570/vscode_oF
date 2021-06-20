@@ -20,6 +20,9 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
-	
 
+	float width, height;
+	float rand[4000];
+	float y[4000];
+	bool mouseIsEntered = false;
 };
