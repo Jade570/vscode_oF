@@ -21,6 +21,10 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
+
+	ofArduino myArduino;
+	ofSerial mySerial;
+
 	float width, height;
 	float rand[5000];
 	float y[4000];
