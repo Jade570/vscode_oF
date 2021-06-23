@@ -7,8 +7,9 @@ void ofApp::setup(){
     width = ofGetWidth();
     height = ofGetHeight();
 
-    myArduino.connect("/dev/tty/usb0", 115200);
-    mySerial.getDeviceList();
+    //myArduino.connect("/dev/tty/usb0", 115200);
+    printf(mySerial.getDeviceList());
+    
 
     int temp;
     for (int x = 0; x <= width; x ++) {
