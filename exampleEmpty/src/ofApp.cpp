@@ -20,10 +20,10 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofBackground(59, 54, 50);
+    //ofBackground(0);
     ofSetColor(35,35,40, 30);
-
+    /*
     float morphed = (glm::cos(glm::radians((float)ofGetFrameNum()))+1)*0.5;
-    
     if (mouseIsEntered){
         for (int i = 0 ; i< 50; i++){
             ofBeginShape();
@@ -40,6 +40,16 @@ void ofApp::draw(){
             ofVertex(-400,0);
             ofEndShape();
         }
+    }*/
+    
+    for (int x = 0 ; x < width; x+=10){
+        for (int y = 0 ; y<height; y+= 10){
+            //1d
+            //ofSetColor(ofMap(ofNoise(x/width), 0, 1, 0, 255));
+            //2d
+            ofSetColor(ofMap(ofNoise(x/(width)+ofGetFrameNum()*0.001, y/(height)), 0, 1, 0, 10), ofMap(ofNoise(x/(width)+ofGetFrameNum()*0.002, y/(height)), 0, 1, 20, 0), ofMap(ofNoise(x/(width)+ofGetFrameNum()*0.004, y/(height)), 0, 1, 40, 255));
+            ofDrawRectangle(x, y, 10, 10); 
+        }      
     }
 }
 

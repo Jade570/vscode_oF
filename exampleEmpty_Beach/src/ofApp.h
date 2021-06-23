@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "aurora.h"
 
 class ofApp : public ofBaseApp{
 public:
@@ -29,4 +30,7 @@ public:
 	int city[5000]; 
 	ofArduino myArduino;
 	ofSerial mySerial;
+	aurora Aurora [1000];
+	int pX = 0, pY = 0;
+	int i = 0;
 };
