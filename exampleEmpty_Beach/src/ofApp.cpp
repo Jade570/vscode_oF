@@ -7,7 +7,7 @@ void ofApp::setup(){
     width = ofGetWidth();
     height = ofGetHeight();
 
-    //myArduino.connect("/dev/tty/usb0", 9600);
+    myArduino.connect("/dev/tty/usb0", 115200);
     mySerial.getDeviceList();
 
     int temp;
@@ -41,54 +41,11 @@ void ofApp::draw(){
         ofDrawCircle(ofRandom(width), ofRandom(height), ofMap(ofRandom(1000), 0, 1000, 0.5, 3));
     }
 
-    //tried to drop shadow the city silhouette
-    /*
-    ofSetColor(0);
-    for (float r = 50; r<=180; r+=3){
-        float xPos, yPosDown, yPosUp;
-        ofBeginShape();
-        for (float x = mouseX-r; x <= mouseX+r; x +=5) {
-            float theta = glm::acos((x-mouseX)/r);
-            xPos = mouseX+r*glm::cos(theta);
-            yPosDown = mouseY+r*glm::sin(theta);
-            if (city[(int)glm::roundEven(xPos)]<=yPosDown){
-                ofVertex(xPos, yPosDown);
-            }
-            else{               
-            }
-        }
-        for (float x = mouseX+r; x >= mouseX-r; x -=5) {
-            float theta = glm::acos((x-mouseX)/r);
-            xPos = mouseX+r*glm::cos(theta);
-            yPosUp = mouseY-r*glm::sin(theta);
-            if (city[(int)glm::roundEven(xPos)]<=yPosUp && city[(int)glm::roundEven(xPos)]>mouseY-r){
-                ofVertex(xPos, city[(int)glm::roundEven(xPos)]);
-            }
-        }
-        ofEndShape();
-    }
-    */
-
     // flash light
     float opacity = ofMap(mouseY, height-height/5, height/5*2, 50, 0);     
     for (float r = 30; r<=300; r*=1.3){
         ofSetColor(255, 251, 222, opacity/2-r/15); 
         ofDrawCircle(mouseX, mouseY, r);        
-        /*float xPos, yPosDown, yPosUp;
-        ofBeginShape();
-        for (float x = mouseX-r; x <= mouseX+r; x +=5) {
-            float theta = glm::acos((x-mouseX)/r);
-            xPos = mouseX+r*glm::cos(theta);
-            yPosDown = mouseY+r*glm::sin(theta);
-            ofVertex(xPos, yPosDown);
-        }
-        for (float x = mouseX+r; x >= mouseX-r; x -=5) {
-            float theta = glm::acos((x-mouseX)/r);
-            xPos = mouseX+r*glm::cos(theta);
-            yPosUp = mouseY-r*glm::sin(theta);
-            ofVertex(xPos, yPosUp);
-        }
-        ofEndShape();*/
     }
 
     // aurora
@@ -107,13 +64,6 @@ void ofApp::draw(){
     for(int i = 0 ; i<1000; i++){
         Aurora[i].Show(0,255,210,100, ofMap(ofNoise(ofRandom(1000)*0.001),0, 1, 0.5, 1.5), height);   
     }
-
-    /*
-    for (int i = 0 ; i<9; i++){
-        printf("%f, ", Aurora[i].Noise);
-    }
-    printf("%f\n", Aurora[10].Noise);*/
-    //printf("%f\n", ofMap(ofNoise(ofGetFrameNum()*0.01),0, 1, 0.5, 1.5));
 
     //wave in shapes 
     for (int i = 0 ; i<25; i += 2){
