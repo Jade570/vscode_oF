@@ -22,7 +22,7 @@ public:
 	void gotMessage(ofMessage msg);
 
 	float width, height;
-	float rand[4000];
+	float rand[5000];
 	float y[4000];
 	bool mouseIsEntered = false;
 };
