@@ -7,7 +7,7 @@ class ofApp : public ofBaseApp{
 public:
 	
 	void setup();
-	void update();
+	void draw();
 	
 	ofArduino myArduino;
 	ofSerial mySerial;
