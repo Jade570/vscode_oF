@@ -22,7 +22,7 @@ void aurora::Reset(){
 void aurora::Show(int r, int g, int b, int a, float noise, int height){	
 	int minus=(ofGetFrameNum()-frameNum);
 	opacity = a - minus;
-	opacity -= ofMap(yPos, 0, height/5*4, 0, opacity);
+	opacity -= ofMap(yPos, 0, height/10*9, 0, opacity);
 	Noise = noise;
 	
 	if (IsShowing == true){

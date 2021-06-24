@@ -5,10 +5,12 @@
 
 class ofApp : public ofBaseApp{
 public:
-	
 	void setup();
-	void draw();
-	
-	ofArduino myArduino;
-	ofSerial mySerial;
+	void update();
+
+
+	ofSerial serial;
+
+	int x, y, z;
+	int angX, angY, angZ;
 };

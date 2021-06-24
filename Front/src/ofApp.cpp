@@ -18,20 +18,20 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){ 
-
+    
     //ofBackground(0);
-    ofBackground(59/3, 54/3, 50/3);
+    //ofBackground(59, 54, 50);
     //background
-    /*for (int x = 0 ; x < width; x+=10){
-        for (int y = 0 ; y<height; y+= 10){
-            ofSetColor(ofMap(ofNoise(x/(width), y/(height)), 0, 1, 0.8, 1.5)*59, ofMap(ofNoise(x/(width), y/(height)), 0, 1, 0.8, 1.5)*54, ofMap(ofNoise(x/(width), y/(height)), 0, 1, 0.8, 1.5)*50);
-            ofDrawRectangle(x, y, 10, 10); 
+    for (int x = 0 ; x < width; x+=30){
+        for (int y = 0 ; y<height+400; y+= 30){
+            ofSetColor(ofMap(ofNoise(x/(width), y/(height)), 0.2, 0.8, 0.8, 1.5)*59, ofMap(ofNoise(x/(width), y/(height)), 0.2, 0.8, 0.8, 1.5)*54, ofMap(ofNoise(x/(width), y/(height)), 0.2, 0.8, 0.8, 1.5)*50);
+            ofDrawRectangle(x, y, 30, 30); 
         }      
-    }*/
+    }
 
     // waves
     float morphed = (glm::cos(glm::radians((float)ofGetFrameNum()))+1)*0.5+0.1;
-    if (mouseIsEntered){
+    /*if (mouseIsEntered){
         for (int i = -3 ; i< 10; i++){
             if (i == -3){
                 ofSetColor(255,255,255, 25);
@@ -55,18 +55,24 @@ void ofApp::draw(){
             ofEndShape();
         }
     }
-    
+    else{*/
+        for (int i = -3 ; i< 10; i++){
+            if (i == -3){
+                ofSetColor(255,255,255, 25);
+            }
+            else{
+                ofSetColor(20/3+ofMap(ofNoise(i*0.008), 0.3, 0.8, -2, 2),35/3+ofMap(ofNoise(i*0.02), 0.8, 0.3, -2, 2),40/3+ofMap(ofNoise(i*0.01), 0.3, 0.7, 0, 30),30+ofMap(ofNoise((i+3)*0.01), 0.3, 0.8, -10, 15));   
+            }
 
-    /* 2D perlin noise test
-    for (int x = 0 ; x < width; x+=10){
-        for (int y = 0 ; y<height; y+= 10){
-            //1d
-            //ofSetColor(ofMap(ofNoise(x/width), 0, 1, 0, 255));
-            //2d
-            ofSetColor(ofMap(ofNoise(x/(width)+ofGetFrameNum()*0.001, y/(height)), 0, 1, 0, 10), ofMap(ofNoise(x/(width)+ofGetFrameNum()*0.002, y/(height)), 0, 1, 20, 0), ofMap(ofNoise(x/(width)+ofGetFrameNum()*0.004, y/(height)), 0, 1, 40, 255));
-            ofDrawRectangle(x, y, 10, 10); 
-        }      
-    }*/
+            ofBeginShape();
+            for (int x = -400 ; x<width+400; x+=100){
+                ofCurveVertex(x+ofMap(ofNoise(ofGetFrameNum()*0.0018, i*0.01), 0, 1, -50, 50), ofLerp(0,-i*30+ofMap(rand[400+x/64]+ofMap(ofNoise(i*0.01), 0.3, 0.8, -200, 200), 0, 1000, (height/3), height*0.6),morphed));   
+            }
+            ofVertex(width+400, 0);
+            ofVertex(-400,0);
+            ofEndShape();
+        } 
+    //}
 }
 
 //--------------------------------------------------------------

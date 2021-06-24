@@ -27,10 +27,14 @@ public:
 	int timer = 0;
 	float width, height;
 	bool mouseIsPressed = false;
-	int city[5000]; 
-	ofArduino myArduino;
-	ofSerial mySerial;
+
+	ofSerial serial;
 	aurora Aurora [1000];
+	float noise_seed [5000];
+	
 	int pX = 0, pY = 0;
 	int i = 0;
+
+	int x, y, z;
+	int angX, angY, angZ;
 };
